@@ -52,15 +52,23 @@ def main():
         # Update for keystrokes
         # old: player.update(dt)
         for obj in updatable:
-             obj.update(dt)
+            obj.update(dt)
 
         # Check for collisions of Asteroids /w Player Object
-        for obj in asteroids:
-             # If it returns True, means there was collision:
-             if obj.check_collision(player):
-                  print("Game Over!")
-                  # pygame.QUIT  ??
-                  return
+        for asteroid in asteroids:
+            # If a shot collides with the obj (asteroid) - then do something
+            for shot in shots:
+                if shot.check_collision(asteroid):
+                    print("Ouch, hit me!")
+                    asteroid.split()
+                    shot.kill()
+            # If it returns True, means there was collision with the player
+            if asteroid.check_collision(player):
+                print("Game Over!")
+                # pygame.QUIT  ??
+                return
+            
+            
 
 
         # Render the screen
